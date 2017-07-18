@@ -8,7 +8,7 @@ $json = json_decode($matches[1]);
 
 $rawIncidents = $json->context->incidentsBar;
 
-$incidents = json_decode(file_get_contents('incidents.json'), true);
+$incidents = json_decode(file_get_contents(__DIR__ . '/incidents.json'), true);
 
 foreach ($rawIncidents as $incident) {
     $incidentData = new stdClass();
@@ -24,4 +24,4 @@ foreach ($rawIncidents as $incident) {
     $incidents[$incidentData->id] = $incidentData;
 }
 
-file_put_contents('incidents.json', json_encode($incidents));
+file_put_contents(__DIR__ . '/incidents.json', json_encode($incidents));
