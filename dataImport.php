@@ -13,6 +13,7 @@ $incidents = json_decode(file_get_contents(__DIR__ . '/incidents.json'), true);
 foreach ($rawIncidents as $incident) {
     $incidentData = new stdClass();
     $incidentData->id = $incident->id;
+    $incidentData->title = $incident->post_title;
     $incidentData->description = $incident->description;
     $incidentData->timestamp = $incident->timestamp;
     $incidentData->location = new stdClass();
