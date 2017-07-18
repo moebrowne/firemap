@@ -1,6 +1,6 @@
 <?php
 
-$incidents = json_decode(file_get_contents('incidents.json'));
+$incidents = json_decode(file_get_contents(__DIR__ . '/incidents.json'));
 $incidents = (array)$incidents;
 
 usort($incidents, function ($a, $b) {
