@@ -74,17 +74,13 @@ a:hover {
 }
 
 .timeline-marker:before {
-	background: #FF6B6B;
-	border: 3px solid transparent;
-	border-radius: 100%;
-	content: "";
+	content: "🔥";
 	display: block;
 	height: 15px;
 	position: absolute;
-	top: 4px;
-	left: 0;
-	width: 15px;
-	transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+	top: 2px;
+	left: -2px;
+	font-size: 19px;
 }
 
 .timeline-marker:after {
@@ -100,11 +96,6 @@ a:hover {
 
 .timeline-item:last-child .timeline-marker:after {
 	content: none;
-}
-
-.timeline-item:not(.period):hover .timeline-marker:before {
-	background: transparent;
-	border: 3px solid #FF6B6B;
 }
 
 /*----- TIMELINE CONTENT -----*/
