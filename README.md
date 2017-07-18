@@ -1,13 +1,6 @@
 # Fire map
 
-
-## Installation
-
-
-
-## Usage example
-
-
+![screenshot](screenshot.png)
 
 ## Meta
 
