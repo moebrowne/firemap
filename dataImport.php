@@ -1,12 +1,14 @@
 <?php
 
-$jsonData = file_get_contents('WP.json');
+$html = file_get_contents('https://www.dwfire.org.uk/');
 
-$json = json_decode($jsonData);
+preg_match('/var WP = ({.+})/', $html, $matches);
+
+$json = json_decode($matches[1]);
 
 $rawIncidents = $json->context->incidentsBar;
 
-$incidents = [];
+$incidents = json_decode(file_get_contents('incidents.json'), true);
 
 foreach ($rawIncidents as $incident) {
     $incidentData = new stdClass();
@@ -19,7 +21,7 @@ foreach ($rawIncidents as $incident) {
     $incidentData->location->lng = $incident->location->lng;
     $incidentData->stations = $incident->attending;
 
-    array_push($incidents, $incidentData);
+    $incidents[$incidentData->id] = $incidentData;
 }
 
 file_put_contents('incidents.json', json_encode($incidents));
