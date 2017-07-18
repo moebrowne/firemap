@@ -83,6 +83,10 @@ a:hover {
 	font-size: 19px;
 }
 
+.timeline-marker.false-alarm:before {
+	content: "🚫";
+}
+
 .timeline-marker:after {
 	content: "";
 	width: 3px;

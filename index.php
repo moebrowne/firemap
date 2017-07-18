@@ -69,12 +69,13 @@ $lngCentre = $minLng + ($lngDiff/8);
         <div class="col-md-12">
             <ul class="timeline">
                 <?php foreach ($incidents as $incident) : ?>
+                    <?php $falseAlarm = strpos($incident->description, 'false alarm') !== false; ?>
 
                     <li class="timeline-item">
                         <div class="timeline-info">
                             <span><?= date('M d, Y', $incident->timestamp); ?></span>
                         </div>
-                        <div class="timeline-marker"></div>
+                        <div class="timeline-marker <?= ($falseAlarm) ? 'false-alarm':''; ?>"></div>
                         <div class="timeline-content">
                             <h3 class="timeline-title"><?= $incident->title; ?></h3>
 
