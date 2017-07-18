@@ -69,7 +69,7 @@ $lngCentre = $minLng + ($lngDiff/8);
 <div class="container-fluid" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
     <div class="row example-basic">
         <div class="col-md-12 example-title">
-            <h2>Dorset and Wiltshire Fire Service</h2>
+            <h1>Dorset and Wiltshire Fire Service</h1>
         </div>
         <div class="col-md-12">
             <ul class="timeline">
