@@ -44,7 +44,7 @@ $lngCentre = $minLng + ($lngDiff/8);
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
+            zoom: 8,
             center: {
                 lat: <?= $latCentre; ?>,
                 lng: <?= $lngCentre; ?>
