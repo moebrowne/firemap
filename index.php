@@ -1,6 +1,9 @@
 <?php
 
 $incidents = json_decode(file_get_contents('incidents.json'));
+$incidents = (array)$incidents;
+
+arsort($incidents);
 
 $maxLat = 0;
 $maxLng = 0;
