@@ -73,15 +73,15 @@ $lngCentre = $minLng + ($lngDiff/8);
         </div>
         <div class="col-md-12">
             <ul class="timeline">
-                <?php $prevMonth = null; ?>
+                <?php $prevDateGroup = null; ?>
                 <?php foreach ($incidents as $incident) : ?>
 
-                    <?php if (date('M', $incident->timestamp) !== $prevMonth) : ?>
+                    <?php if (date('d M Y', $incident->timestamp) !== $prevDateGroup) : ?>
                     <li class="timeline-item period">
                         <div class="timeline-info"></div>
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <h2 class="timeline-title"><?= date('F Y', $incident->timestamp); ?></h2>
+                            <h2 class="timeline-title"><?= date('d F Y', $incident->timestamp); ?></h2>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -89,9 +89,6 @@ $lngCentre = $minLng + ($lngDiff/8);
                     <?php $falseAlarm = strpos($incident->description, 'false alarm') !== false; ?>
 
                     <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span><?= date('M d', $incident->timestamp); ?></span>
-                        </div>
                         <div class="timeline-marker <?= ($falseAlarm) ? 'false-alarm':''; ?>"></div>
                         <div class="timeline-content">
                             <h3 class="timeline-title"><?= $incident->title; ?></h3>
@@ -99,7 +96,7 @@ $lngCentre = $minLng + ($lngDiff/8);
                             <p><?= $incident->description; ?></p>
                         </div>
                     </li>
-                    <?php $prevMonth = date('M', $incident->timestamp); ?>
+                    <?php $prevDateGroup = date('d M Y', $incident->timestamp); ?>
                 <?php endforeach; ?>
             </ul>
         </div>
