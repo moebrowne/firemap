@@ -63,6 +63,7 @@ $lngCentre = $minLng + ($lngDiff/8);
                 new google.maps.LatLng(<?= $incident->location->lat; ?>, <?= $incident->location->lng; ?>),
                 <?php endforeach; ?>
             ],
+            radius: 8,
             map: map
         });
     }
