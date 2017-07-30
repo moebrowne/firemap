@@ -10,6 +10,11 @@ usort($incidents, function ($a, $b) {
     return ($a->timestamp < $b->timestamp) ? 1 : -1;
 });
 
+// Remove any incidents without a position
+$incidents = array_filter($incidents, function($incident) {
+    return !empty($incident->location->lat) && !empty($incident->location->lng);
+});
+
 $maxLat = 0;
 $maxLng = 0;
 $minLat = INF;
