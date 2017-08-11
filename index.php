@@ -87,7 +87,7 @@ $lngCentre = $minLng + ($lngDiff/8);
                         <div class="timeline-info"></div>
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <h2 class="timeline-title"><?= date('d F Y', $incident->timestamp); ?></h2>
+                            <h2 class="timeline-title"><?= date('j F Y', $incident->timestamp); ?></h2>
                         </div>
                     </li>
                     <?php endif; ?>
