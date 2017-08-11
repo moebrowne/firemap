@@ -49,12 +49,12 @@ $lngCentre = $minLng + ($lngDiff/8);
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 9,
             center: {
                 lat: <?= $latCentre; ?>,
                 lng: <?= $lngCentre; ?>
             },
-            mapTypeId: 'roadmap'
+            mapTypeId: 'hybrid'
         });
 
         heatmap = new google.maps.visualization.HeatmapLayer({
