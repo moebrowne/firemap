@@ -79,7 +79,11 @@ $lngCentre = $minLng + ($lngDiff/8);
         </div>
         <div class="col-md-12">
             <ul class="timeline">
-                <?php $prevDateGroup = null; ?>
+                <?php
+                $prevDateGroup = null;
+                $limit = (int)max(15, $_GET['limit']);
+                $i = 0;
+                ?>
                 <?php foreach ($incidents as $incident) : ?>
 
                     <?php if (date('d M Y', $incident->timestamp) !== $prevDateGroup) : ?>
@@ -103,7 +107,13 @@ $lngCentre = $minLng + ($lngDiff/8);
                         </div>
                     </li>
                     <?php $prevDateGroup = date('d M Y', $incident->timestamp); ?>
+                    <?php if ($i++ > $limit) { break; } ?>
                 <?php endforeach; ?>
+                <?php if (count($incidents) > $limit) : ?>
+                    <li style="margin: 15px 0 40px; text-align: center;">
+                        <a href="?limit=<?= ($limit + 15) ?>">Show More</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
