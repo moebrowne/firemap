@@ -31,7 +31,7 @@ $latDiff = abs($maxLat-$minLat);
 $latCentre = $minLat + ($latDiff/2);
 
 $lngDiff = abs($maxLng-$minLng);
-$lngCentre = $minLng + ($lngDiff/8);
+$lngCentre = $minLng + ($lngDiff/5);
 
 ?>
 <!doctype html>
