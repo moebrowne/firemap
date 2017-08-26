@@ -101,9 +101,10 @@ $lngCentre = $minLng + ($lngDiff/5);
                     <?php $vehicleFireLarge = preg_match('/large vehicle|vehicle large/i', $incident->title . $incident->description) === 1; ?>
                     <?php $lockedIn = preg_match('/locked in|Shut In/i', $incident->title . $incident->description) === 1; ?>
                     <?php $smallAnimal = preg_match('/small animal|RSPCA|hamster/i', $incident->title . $incident->description) === 1; ?>
+                    <?php $aircraft = preg_match('/aircraft/i', $incident->title . $incident->description) === 1; ?>
 
                     <li class="timeline-item">
-                        <div class="timeline-marker <?= ($falseAlarm) ? 'false-alarm':''; ?> <?= ($vehicleFire) ? 'vehicle-fire':''; ?> <?= ($vehicleFireLarge) ? 'vehicle-fire-large':''; ?> <?= ($lockedIn) ? 'locked-in':''; ?> <?= ($smallAnimal) ? 'small-animal':''; ?>"></div>
+                        <div class="timeline-marker <?= ($falseAlarm) ? 'false-alarm':''; ?> <?= ($vehicleFire) ? 'vehicle-fire':''; ?> <?= ($vehicleFireLarge) ? 'vehicle-fire-large':''; ?> <?= ($lockedIn) ? 'locked-in':''; ?> <?= ($smallAnimal) ? 'small-animal':''; ?> <?= ($aircraft) ? 'aircraft':''; ?>"></div>
                         <div class="timeline-content">
                             <h3 class="timeline-title"><?= $incident->title; ?></h3>
 

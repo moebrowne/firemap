@@ -103,6 +103,10 @@ a:hover {
 	content: "🐾";
 }
 
+.timeline-marker.aircraft:before {
+	content: "🛩️";
+}
+
 .timeline-marker:after {
 	content: "";
 	width: 3px;
