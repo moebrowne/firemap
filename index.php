@@ -99,7 +99,7 @@ $lngCentre = $minLng + ($lngDiff/5);
                     <?php $falseAlarm = strpos($incident->description, 'false alarm') !== false; ?>
                     <?php $vehicleFire = preg_match('/small vehicle|vehicle fire|Fire Vehicle|RTC|Road Traffic Collision|Car Fire/i', $incident->title . $incident->description) === 1; ?>
                     <?php $vehicleFireLarge = preg_match('/large vehicle|vehicle large|Lorry Fire/i', $incident->title . $incident->description) === 1; ?>
-                    <?php $lockedIn = preg_match('/locked in|Shut In/i', $incident->title . $incident->description) === 1; ?>
+                    <?php $lockedIn = preg_match('/locked in|Shut In|Lift Release/i', $incident->title . $incident->description) === 1; ?>
                     <?php $smallAnimal = preg_match('/small animal|RSPCA|hamster/i', $incident->title . $incident->description) === 1; ?>
                     <?php $aircraft = preg_match('/aircraft/i', $incident->title . $incident->description) === 1; ?>
 
