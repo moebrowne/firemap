@@ -95,6 +95,10 @@ a:hover {
 	content: "🔑";
 }
 
+.timeline-marker.small-animal:before {
+	content: "🐾";
+}
+
 .timeline-marker:after {
 	content: "";
 	width: 3px;
