@@ -87,6 +87,10 @@ a:hover {
 	content: "🚫";
 }
 
+.timeline-marker.vehicle-fire:before {
+	content: "🚙";
+}
+
 .timeline-marker:after {
 	content: "";
 	width: 3px;
