@@ -97,7 +97,7 @@ $lngCentre = $minLng + ($lngDiff/5);
                     <?php endif; ?>
 
                     <?php $falseAlarm = strpos($incident->description, 'false alarm') !== false; ?>
-                    <?php $vehicleFire = preg_match('/vehicle fire|RTC|Road Traffic Collision/i', $incident->title . $incident->description) === 1; ?>
+                    <?php $vehicleFire = preg_match('/vehicle fire|RTC|Road Traffic Collision|Car Fire/i', $incident->title . $incident->description) === 1; ?>
 
                     <li class="timeline-item">
                         <div class="timeline-marker <?= ($falseAlarm) ? 'false-alarm':''; ?> <?= ($vehicleFire) ? 'vehicle-fire':''; ?>"></div>
