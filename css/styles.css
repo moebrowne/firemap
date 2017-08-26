@@ -91,6 +91,10 @@ a:hover {
 	content: "🚙";
 }
 
+.timeline-marker.vehicle-fire-large:before {
+	content: "🚚";
+}
+
 .timeline-marker.locked-in:before {
 	content: "🔑";
 }
