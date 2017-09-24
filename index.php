@@ -96,12 +96,14 @@ $lngCentre = $minLng + ($lngDiff/5);
                     </li>
                     <?php endif; ?>
 
-                    <?php $falseAlarm = strpos($incident->description, 'false alarm') !== false; ?>
-                    <?php $vehicleFire = preg_match('/small vehicle|vehicle fire|Fire Vehicle|RTC|Road Traffic Collision|Car Fire/i', $incident->title . $incident->description) === 1; ?>
-                    <?php $vehicleFireLarge = preg_match('/large vehicle|vehicle large|Lorry Fire/i', $incident->title . $incident->description) === 1; ?>
-                    <?php $lockedIn = preg_match('/locked in|Shut In|Lift Release|Release person/i', $incident->title . $incident->description) === 1; ?>
-                    <?php $smallAnimal = preg_match('/small animal|RSPCA|hamster/i', $incident->title . $incident->description) === 1; ?>
-                    <?php $aircraft = preg_match('/aircraft/i', $incident->title . $incident->description) === 1; ?>
+                    <?php
+                    $falseAlarm = strpos($incident->description, 'false alarm') !== false;
+                    $vehicleFire = preg_match('/small vehicle|vehicle fire|Fire Vehicle|RTC|Road Traffic Collision|Car Fire/i', $incident->title . $incident->description) === 1;
+                    $vehicleFireLarge = preg_match('/large vehicle|vehicle large|Lorry Fire/i', $incident->title . $incident->description) === 1;
+                    $lockedIn = preg_match('/locked in|Shut In|Lift Release|Release person/i', $incident->title . $incident->description) === 1;
+                    $smallAnimal = preg_match('/small animal|RSPCA|hamster/i', $incident->title . $incident->description) === 1;
+                    $aircraft = preg_match('/aircraft/i', $incident->title . $incident->description) === 1;
+                    ?>
 
                     <li class="timeline-item">
                         <div class="timeline-marker <?= ($falseAlarm) ? 'false-alarm':''; ?> <?= ($vehicleFire) ? 'vehicle-fire':''; ?> <?= ($vehicleFireLarge) ? 'vehicle-fire-large':''; ?> <?= ($lockedIn) ? 'locked-in':''; ?> <?= ($smallAnimal) ? 'small-animal':''; ?> <?= ($aircraft) ? 'aircraft':''; ?>"></div>
