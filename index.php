@@ -98,11 +98,12 @@ $lngCentre = $minLng + ($lngDiff/5);
 
                     <?php
                     $falseAlarm = strpos($incident->description, 'false alarm') !== false;
-                    $vehicleFire = preg_match('/small vehicle|vehicle fire|Fire Vehicle|RTC|Road Traffic Collision|Car Fire/i', $incident->title . $incident->description) === 1;
-                    $vehicleFireLarge = preg_match('/large vehicle|vehicle large|Lorry Fire/i', $incident->title . $incident->description) === 1;
-                    $lockedIn = preg_match('/locked in|Shut In|Lift Release|Release person/i', $incident->title . $incident->description) === 1;
-                    $smallAnimal = preg_match('/small animal|RSPCA|hamster/i', $incident->title . $incident->description) === 1;
-                    $aircraft = preg_match('/aircraft/i', $incident->title . $incident->description) === 1;
+                    $searchString = $incident->title . ' ' . $incident->description;
+                    $vehicleFire = preg_match('/small vehicle|vehicle fire|Fire Vehicle|RTC|Road Traffic Collision|Car Fire/i', $searchString) === 1;
+                    $vehicleFireLarge = preg_match('/large vehicle|vehicle large|Lorry Fire/i', $searchString) === 1;
+                    $lockedIn = preg_match('/locked in|Shut In|Lift Release|Release person/i', $searchString) === 1;
+                    $smallAnimal = preg_match('/small animal|RSPCA|hamster/i', $searchString) === 1;
+                    $aircraft = preg_match('/aircraft/i', $searchString) === 1;
                     ?>
 
                     <li class="timeline-item">
