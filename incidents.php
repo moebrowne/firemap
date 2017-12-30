@@ -16,24 +16,25 @@ $incidents = array_filter($incidents, function ($incident) {
 });
 
 
-function renderIncidents($offset, $count)
+function renderIncidentDays($offset, $count)
 {
     global $incidents;
 
     $prevDateGroup = null;
-    $incidentGroup = array_slice($incidents, $offset, $count);
     $entries = [];
+    $daysRendered = 0;
 
-    foreach ($incidentGroup as $incident) {
+    foreach ($incidents as $incident) {
         if (date('d M Y', $incident->timestamp) !== $prevDateGroup) {
-            $entries[] = '
-            <li class="timeline-item period">
-                <div class="timeline-info"></div>
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <h2 class="timeline-title">' . date('j F Y', $incident->timestamp) . '</h2>
-                </div>
-            </li>';
+            $daysRendered++;
+            $entries[$daysRendered] = '
+                <li class="timeline-item period">
+                    <div class="timeline-info"></div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h2 class="timeline-title">' . date('j F Y', $incident->timestamp) . '</h2>
+                    </div>
+                </li>';
         }
 
         $classes = '';
@@ -46,7 +47,7 @@ function renderIncidents($offset, $count)
         $classes .= preg_match('/small animal|RSPCA|hamster/i', $searchString) === 1 ? 'small-animal ' : '';
         $classes .= preg_match('/aircraft/i', $searchString) === 1 ? 'aircraft ' : '';
 
-        $entries[] = '<li class="timeline-item">
+        $entries[$daysRendered] .= '<li class="timeline-item">
             <div class="timeline-marker ' . $classes . '"></div>
             <div class="timeline-content">
                 <h3 class="timeline-title">' . $incident->title . '</h3>
@@ -56,6 +57,8 @@ function renderIncidents($offset, $count)
         </li>';
         $prevDateGroup = date('d M Y', $incident->timestamp);
     }
+
+    $entries = array_slice($entries, $offset, $count);
 
     return implode('', $entries);
 }
