@@ -59,7 +59,7 @@ $lngCentre = $minLng + ($lngDiff/5);
 
 <div id="map" style="width: 49vw; height: 100vh; float: left;"></div>
 
-<div class="container-fluid" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
+<div id="incident-list" class="container-fluid" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
     <div class="row example-basic">
         <div class="col-md-12 example-title">
             <h1>Dorset and Wiltshire Fire Service</h1>
@@ -71,5 +71,28 @@ $lngCentre = $minLng + ($lngDiff/5);
         </div>
     </div>
 </div>
+<script>
+    var incidentListContainer = document.getElementById('incident-list');
+    var incidentList = document.querySelector('#incident-list .timeline');
+    var currentlyRenderedDays = 3;
+
+    incidentListContainer.addEventListener('scroll', function () {
+        if (incidentListContainer.offsetHeight + incidentListContainer.scrollTop >= incidentListContainer.scrollHeight) {
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    if (xmlhttp.status == 200) {
+                        incidentList.innerHTML = incidentList.innerHTML + xmlhttp.responseText;
+                        currentlyRenderedDays += 1;
+                    }
+                }
+            };
+
+            xmlhttp.open("GET", "fetchIncidents.php?offset=" + (currentlyRenderedDays+1) + "&count=1", true);
+            xmlhttp.send();
+        }
+    })
+</script>
 </body>
 </html>
