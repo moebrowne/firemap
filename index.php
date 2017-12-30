@@ -99,6 +99,7 @@ $lngCentre = $minLng + ($lngDiff/5);
                         incidentList.innerHTML = incidentList.innerHTML + xmlhttp.responseText;
                         currentlyRenderedDays += 1;
                         oppPending = false;
+                        hideSpinner();
                     }
                 }
             };
@@ -106,8 +107,17 @@ $lngCentre = $minLng + ($lngDiff/5);
             xmlhttp.open("GET", "fetchIncidents.php?offset=" + (currentlyRenderedDays+1) + "&count=1", true);
             xmlhttp.send();
             oppPending = true;
+            showSpinner();
         }
-    })
+    });
+
+    function showSpinner() {
+        document.querySelector('.spinner').style.visibility = 'visible';
+    }
+
+    function hideSpinner() {
+        document.querySelector('.spinner').style.visibility = 'hidden';
+    }
 </script>
 </body>
 </html>
