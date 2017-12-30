@@ -70,6 +70,13 @@ $lngCentre = $minLng + ($lngDiff/5);
             </ul>
         </div>
     </div>
+    <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+    </div>
 </div>
 <script>
     var incidentListContainer = document.getElementById('incident-list');
