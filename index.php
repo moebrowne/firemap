@@ -75,8 +75,14 @@ $lngCentre = $minLng + ($lngDiff/5);
     var incidentListContainer = document.getElementById('incident-list');
     var incidentList = document.querySelector('#incident-list .timeline');
     var currentlyRenderedDays = 3;
+    var oppPending = false;
 
     incidentListContainer.addEventListener('scroll', function () {
+
+        if (oppPending) {
+            return;
+        }
+
         if (incidentListContainer.offsetHeight + incidentListContainer.scrollTop >= incidentListContainer.scrollHeight) {
             var xmlhttp = new XMLHttpRequest();
 
@@ -85,12 +91,14 @@ $lngCentre = $minLng + ($lngDiff/5);
                     if (xmlhttp.status == 200) {
                         incidentList.innerHTML = incidentList.innerHTML + xmlhttp.responseText;
                         currentlyRenderedDays += 1;
+                        oppPending = false;
                     }
                 }
             };
 
             xmlhttp.open("GET", "fetchIncidents.php?offset=" + (currentlyRenderedDays+1) + "&count=1", true);
             xmlhttp.send();
+            oppPending = true;
         }
     })
 </script>
