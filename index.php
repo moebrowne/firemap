@@ -66,7 +66,7 @@ $lngCentre = $minLng + ($lngDiff/5);
         </div>
         <div class="col-md-12">
             <ul class="timeline">
-                <?= renderIncidents(0, 15); ?>
+                <?= renderIncidentDays(0, 4); ?>
             </ul>
         </div>
     </div>
