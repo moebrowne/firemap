@@ -28,7 +28,7 @@ foreach ($incidents as $incident) {
 }
 
 $latDiff = abs($maxLat-$minLat);
-$latCentre = $minLat + ($latDiff/2);
+$latCentre = $minLat + ($latDiff/5);
 
 $lngDiff = abs($maxLng-$minLng);
 $lngCentre = $minLng + ($lngDiff/5);
