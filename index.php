@@ -59,7 +59,7 @@ $lngCentre = $minLng + ($lngDiff/5);
 
 <div id="map" style="width: 49vw; height: 100vh; float: left;"></div>
 
-<div class="container-fluid" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
+<div id="incident-list" class="container-fluid" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
     <div class="row example-basic">
         <div class="col-md-12 example-title">
             <h1>Dorset and Wiltshire Fire Service</h1>
@@ -70,6 +70,54 @@ $lngCentre = $minLng + ($lngDiff/5);
             </ul>
         </div>
     </div>
+    <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+    </div>
 </div>
+<script>
+    var incidentListContainer = document.getElementById('incident-list');
+    var incidentList = document.querySelector('#incident-list .timeline');
+    var currentlyRenderedDays = 3;
+    var oppPending = false;
+
+    incidentListContainer.addEventListener('scroll', function () {
+
+        if (oppPending) {
+            return;
+        }
+
+        if (incidentListContainer.offsetHeight + incidentListContainer.scrollTop >= incidentListContainer.scrollHeight) {
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    if (xmlhttp.status == 200) {
+                        incidentList.innerHTML = incidentList.innerHTML + xmlhttp.responseText;
+                        currentlyRenderedDays += 1;
+                        oppPending = false;
+                        hideSpinner();
+                    }
+                }
+            };
+
+            xmlhttp.open("GET", "fetchIncidents.php?offset=" + (currentlyRenderedDays+1) + "&count=1", true);
+            xmlhttp.send();
+            oppPending = true;
+            showSpinner();
+        }
+    });
+
+    function showSpinner() {
+        document.querySelector('.spinner').style.visibility = 'visible';
+    }
+
+    function hideSpinner() {
+        document.querySelector('.spinner').style.visibility = 'hidden';
+    }
+</script>
 </body>
 </html>
