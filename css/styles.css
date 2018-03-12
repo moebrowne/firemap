@@ -107,6 +107,10 @@ a:hover {
 	content: "🛩️";
 }
 
+.timeline-marker.hazmat:before {
+	content: "☣";
+}
+
 .timeline-marker:after {
 	content: "";
 	width: 3px;

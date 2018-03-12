@@ -46,6 +46,7 @@ function renderIncidentDays($offset, $count)
         $classes .= preg_match('/locked in|Shut In|Lift Release|Release (?:of )?person|person released/i', $searchString) === 1 ? 'locked-in ' : '';
         $classes .= preg_match('/small animal|RSPCA|hamster/i', $searchString) === 1 ? 'small-animal ' : '';
         $classes .= preg_match('/aircraft/i', $searchString) === 1 ? 'aircraft ' : '';
+        $classes .= preg_match('/hazmat|biohazard/i', $searchString) === 1 ? 'hazmat ' : '';
 
         $entries[$daysRendered] .= '<li class="timeline-item">
             <div class="timeline-marker ' . $classes . '"></div>
