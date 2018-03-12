@@ -40,7 +40,7 @@ function renderIncidentDays($offset, $count)
         $classes = '';
 
         $searchString = $incident->title . ' ' . $incident->description;
-        $classes .= strpos($searchString, 'false alarm') !== false ? 'false-alarm ' : '';
+        $classes .= stripos($searchString, 'false alarm') !== false ? 'false-alarm ' : '';
         $classes .= preg_match('/small vehicle|vehicle fire|Fire Vehicle|RTC|Road Traffic Collision|Car Fire/i', $searchString) === 1 ? 'vehicle-fire ' : '';
         $classes .= preg_match('/large vehicle|vehicle large|Lorry Fire/i', $searchString) === 1 ? 'vehicle-fire-large ' : '';
         $classes .= preg_match('/locked in|Shut In|Lift Release|Release (?:of )?person/i', $searchString) === 1 ? 'locked-in ' : '';
