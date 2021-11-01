@@ -8,17 +8,12 @@ $minLat = INF;
 $minLng = INF;
 
 foreach ($incidents as $incident) {
-    $maxLat = max($maxLat, $incident->location->lat);
-    $maxLng = max($maxLng, $incident->location->lng);
-    $minLat = min($minLat, $incident->location->lat);
-    $minLng = min($minLng, $incident->location->lng);
+    $latTotal += $incident->location->lat;
+    $lngTotal += $incident->location->lng;
 }
 
-$latDiff = abs($maxLat-$minLat);
-$latCentre = $minLat + ($latDiff/5);
-
-$lngDiff = abs($maxLng-$minLng);
-$lngCentre = $minLng + ($lngDiff/5);
+$latCentre = $latTotal / count($incidents);
+$lngCentre = $lngTotal / count($incidents);;
 
 ?>
 <!doctype html>
