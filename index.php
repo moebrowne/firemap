@@ -26,7 +26,7 @@ $lngCentre = $minLng + ($lngDiff/5);
 <head>
     <meta charset="UTF-8">
     <title>Fire Map</title>
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="css/styles.css">
 </head>
 <body>
