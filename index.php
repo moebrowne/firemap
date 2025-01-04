@@ -29,7 +29,6 @@ $meanLng /= count($incidents);
 <head>
     <meta charset="UTF-8">
     <title>Fire Map</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -62,12 +61,10 @@ $meanLng /= count($incidents);
 
 <div id="map" style="width: 49vw; height: 100vh; float: left;"></div>
 
-<div id="incident-list" class="container-fluid" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
-    <div class="row example-basic">
-        <div class="col-md-12 example-title">
-            <h1>Dorset and Wiltshire Fire Service</h1>
-        </div>
-        <div class="col-md-12">
+<div id="incident-list" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
+    <div>
+        <h1>Dorset and Wiltshire Fire Service</h1>
+        <div>
             <ul class="timeline">
                 <?= renderIncidentDays(0, 4); ?>
             </ul>
