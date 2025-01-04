@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 0);
 
 $incidents = json_decode(file_get_contents(__DIR__ . '/incidents.json'));
 $incidents = (array)$incidents;

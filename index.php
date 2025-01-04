@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 0);
 
 require 'incidents.php';
 
@@ -6,19 +7,21 @@ $maxLat = 0;
 $maxLng = 0;
 $minLat = INF;
 $minLng = INF;
+$meanLat = 0;
+$meanLng = 0;
 
 foreach ($incidents as $incident) {
     $maxLat = max($maxLat, $incident->location->lat);
     $maxLng = max($maxLng, $incident->location->lng);
     $minLat = min($minLat, $incident->location->lat);
     $minLng = min($minLng, $incident->location->lng);
+
+    $meanLat += $incident->location->lat;
+    $meanLng += $incident->location->lng;
 }
 
-$latDiff = abs($maxLat-$minLat);
-$latCentre = $minLat + ($latDiff/5);
-
-$lngDiff = abs($maxLng-$minLng);
-$lngCentre = $minLng + ($lngDiff/5);
+$meanLat /= count($incidents);
+$meanLng /= count($incidents);
 
 ?>
 <!doctype html>
@@ -38,8 +41,8 @@ $lngCentre = $minLng + ($lngDiff/5);
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 9,
             center: {
-                lat: <?= $latCentre; ?>,
-                lng: <?= $lngCentre; ?>
+                lat: <?= $meanLat; ?>,
+                lng: <?= $meanLng; ?>
             },
             mapTypeId: 'hybrid'
         });
