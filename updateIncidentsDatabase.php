@@ -1,11 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 ini_set('display_errors', 0);
 
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_URL,"https://www.dwfire.org.uk/");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-+curl_setopt($ch, CURLOPT_HTTP_VERSION, 3);
+curl_setopt($ch, CURLOPT_HTTP_VERSION, 3);
+curl_setopt($ch, CURLOPT_ENCODING, '');
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'User-Agent: curl/7.81.0',
     'Accept: text/html',
@@ -15,11 +19,11 @@ $html = curl_exec($ch);
 
 preg_match('/var WP = ({.+})/', $html, $matches);
 
-$json = json_decode($matches[1]);
+$json = json_decode($matches[1], flags: JSON_THROW_ON_ERROR);
 
 $rawIncidents = $json->context->incidentsBar;
 
-$incidents = json_decode(file_get_contents(__DIR__ . '/incidents.json'), true);
+$incidents = json_decode(file_get_contents(__DIR__ . '/incidents.json'), true, flags: JSON_THROW_ON_ERROR);
 
 foreach ($rawIncidents as $incident) {
     $time = trim($incident->custom->time);
@@ -42,8 +46,8 @@ foreach ($rawIncidents as $incident) {
 
     $timeMinutes = str_replace(['am', 'pm'], '', $timeMinutes);
 
-    $timeHours = str_pad($timeHours, 2, '0', STR_PAD_LEFT);
-    $timeMinutes = str_pad($timeMinutes, 2, '0', STR_PAD_LEFT);
+    $timeHours = str_pad((string)$timeHours, 2, '0', STR_PAD_LEFT);
+    $timeMinutes = str_pad((string)$timeMinutes, 2, '0', STR_PAD_LEFT);
 
     $incidentData = new stdClass();
     $incidentData->id = $incident->id;
@@ -59,4 +63,4 @@ foreach ($rawIncidents as $incident) {
     $incidents[$incidentData->id] = $incidentData;
 }
 
-file_put_contents(__DIR__ . '/incidents.json', json_encode($incidents));
+file_put_contents(__DIR__ . '/incidents.json', json_encode($incidents, flags: JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));

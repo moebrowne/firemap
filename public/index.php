@@ -1,27 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 ini_set('display_errors', 0);
 
-require 'incidents.php';
+$incidents = require __DIR__ . '/../incidents.php';
 
-$maxLat = 0;
-$maxLng = 0;
-$minLat = INF;
-$minLng = INF;
-$meanLat = 0;
-$meanLng = 0;
-
-foreach ($incidents as $incident) {
-    $maxLat = max($maxLat, $incident->location->lat);
-    $maxLng = max($maxLng, $incident->location->lng);
-    $minLat = min($minLat, $incident->location->lat);
-    $minLng = min($minLng, $incident->location->lng);
-
-    $meanLat += $incident->location->lat;
-    $meanLng += $incident->location->lng;
-}
-
-$meanLat /= count($incidents);
-$meanLng /= count($incidents);
+$meanLat = array_sum(array_map(fn (stdClass $incident) => $incident->location->lat, $incidents)) / count($incidents);
+$meanLng = array_sum(array_map(fn (stdClass $incident) => $incident->location->lng, $incidents)) / count($incidents);
 
 ?>
 <!doctype html>
@@ -70,9 +56,7 @@ $meanLng /= count($incidents);
     <div>
         <h1>Dorset and Wiltshire Fire Service</h1>
         <div>
-            <ul class="timeline">
-                <?= renderIncidentDays(0, 4); ?>
-            </ul>
+            <ul class="timeline"></ul>
         </div>
     </div>
     <div class="spinner">
@@ -86,35 +70,40 @@ $meanLng /= count($incidents);
 <script>
     var incidentListContainer = document.getElementById('incident-list');
     var incidentList = document.querySelector('#incident-list .timeline');
-    var currentlyRenderedDays = 3;
+    var currentlyRenderedDays = 0;
     var oppPending = false;
 
-    incidentListContainer.addEventListener('scroll', function () {
-
+    const renderTimeline = function (count = 1) {
         if (oppPending) {
             return;
         }
 
-        if (incidentListContainer.offsetHeight + incidentListContainer.scrollTop >= incidentListContainer.scrollHeight) {
-            var xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                    if (xmlhttp.status == 200) {
-                        incidentList.innerHTML = incidentList.innerHTML + xmlhttp.responseText;
-                        currentlyRenderedDays += 1;
-                        oppPending = false;
-                        hideSpinner();
-                    }
-                }
-            };
-
-            xmlhttp.open("GET", "fetchIncidents.php?offset=" + (currentlyRenderedDays+1) + "&count=1", true);
-            xmlhttp.send();
-            oppPending = true;
-            showSpinner();
+        if (incidentListContainer.offsetHeight + incidentListContainer.scrollTop < incidentListContainer.scrollHeight) {
+            return;
         }
-    });
+
+        oppPending = true;
+        showSpinner();
+
+        fetch("renderTimeline.php?offset=" + currentlyRenderedDays + "&count=" + count)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                return response.text();
+            })
+            .then(html => {
+                incidentList.innerHTML += html;
+                currentlyRenderedDays += count;
+                oppPending = false;
+                hideSpinner();
+            });
+    };
+
+    incidentListContainer.addEventListener('scroll', () => renderTimeline());
+
+    renderTimeline(3);
 
     function showSpinner() {
         document.querySelector('.spinner').style.visibility = 'visible';
