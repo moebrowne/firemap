@@ -30,36 +30,41 @@ $meanLng /= count($incidents);
     <meta charset="UTF-8">
     <title>Fire Map</title>
     <link type="text/css" rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/leaflet.css" />
+    <script src="/js/leaflet.js"></script>
+    <script src="/js/leaflet-heat.js"></script>
 </head>
 <body>
 
 <script>
-    var map, heatmap;
+    document.addEventListener('DOMContentLoaded', function() {
+        const map = L
+            .map('map', {minZoom: 9})
+            .setView([<?= $meanLat; ?>, <?= $meanLng; ?>], 9);
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 9,
-            center: {
-                lat: <?= $meanLat; ?>,
-                lng: <?= $meanLng; ?>
-            },
-            mapTypeId: 'hybrid'
-        });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            opacity: 0.8,
+        })
+        .addTo(map);
 
-        heatmap = new google.maps.visualization.HeatmapLayer({
-            data: [
+        L.heatLayer(
+            [
                 <?php foreach ($incidents as $incident) : ?>
-                new google.maps.LatLng(<?= $incident->location->lat; ?>, <?= $incident->location->lng; ?>),
+                [<?= $incident->location->lat; ?>, <?= $incident->location->lng; ?>, 1],
                 <?php endforeach; ?>
             ],
-            radius: 8,
-            map: map
-        });
-    }
+            {
+                radius: 5,
+                blur: 4,
+                maxZoom: 14,
+            }
+        )
+        .addTo(map);
+    });
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGZBYP2Xhoq3ZqfM3sOXAx2t_3-iyMaJE&libraries=visualization&callback=initMap"></script>
 
-<div id="map" style="width: 49vw; height: 100vh; float: left;"></div>
+<div id="map" style="width: 49vw; height: 100vh; float: left; background-color: #000"></div>
 
 <div id="incident-list" style="width: 49vw; height: 100vh; overflow-y: scroll; float: right;">
     <div>
